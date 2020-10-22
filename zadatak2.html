@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<title>Ančimer zadatak 2</title>
+
+<style>
+body{
+	font-family:Baskerville;
+	background-color:#ededed;
+}
+input:focus{
+	outline:none;
+}
+#test{
+	color:#2a2a2a;
+	background-color:#D3D3D3;
+	border:none;
+	border-radius:3px;
+}
+.user-input{
+	width:50%;
+	padding-top:70px;
+	padding-bottom:10px;
+	display:block;
+	height:30px;
+}
+input{
+	width:90%;
+	border:none;
+	border-radius:3px;
+	font-size:20px;
+	}
+button{
+	height:25px;
+	
+}
+button:focus{
+	border:none;
+	outline-width:1px;
+	}
+</style>
+
+</head>
+
+<body>
+<h2>Dobrodošli u provjeru palindroma!</h2>
+<p>Za utvrđivanje je li fraza palindrom unesite izraz u input bar i pritisnite gumb ili enter sa tipkovnice:</p>
+<div class="user-input">
+			<input type="text" id="userInput" name="msgText">
+			<button id="test" type="button"><span class="fa fa-arrow-right"></span></button>
+		</div>
+		
+<script>
+let btn=document.getElementById('test');
+let input=document.getElementById('userInput');
+btn.addEventListener('click',function(){
+		let tekst=input.value;
+		let rezultat;
+		
+		tekst=tekst.replace(" ","");
+		tekst=tekst.toLowerCase().replace(/[^\w\s\d]/gi, "");
+		tekst=tekst.replace(/ /g, "");
+		tekst=tekst.trim();
+		//alert(tekst);
+		let reversetekst=tekst.split("").reverse().join("");
+		//alert(reversetekst);
+		if(reversetekst==tekst){
+			alert("String je palindrom");
+		}else{
+			alert("String nije palindrom");
+		}
+	});
+input.addEventListener("keyup", function(event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    btn.click();
+  }
+});
+</script>
+</body>
+
+</html>
