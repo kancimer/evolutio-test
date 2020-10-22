@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>Ančimer zadatak 1</title>
+
+<style>
+body{
+	font-family:Arial;
+	background-color:lightyellow;
+}
+#igra{
+	backround-color:lightblue;
+	width:80%; 
+	margin:auto;
+	padding:50px;
+	}
+i{
+	font-size:30px; 
+	padding:25px;
+	}
+#user>i:hover{
+	color:red;
+	}
+#user>i:active{
+	color:green;
+	}
+section{
+	width:50%;
+	padding:0;
+	float:left;
+	}
+#rezultat{
+	clear:both;
+}
+
+</style>
+</head>
+
+<body>
+<h1>Dobrodošli u probnu stranicu Kristine Ančimer!</h1>
+<h2>U nastavku je klasična igra "Kamen, škare, papir". </h2>
+<p>Potrebno je samo napraviti svoj prvi potez za pokretanje i moguće je igrati do prvih naznaka dosade. Sretno!</p>
+<article id="igra">
+<section>
+<h6>Izaberite potez:</h6>
+<div id="user">
+<i class="fa fa-hand-grab-o" id="kamen" onclick="setUserMove('kamen')"></i>
+<i class="fa fa-hand-scissors-o" id="skare" onclick="setUserMove('skare')"></i>
+<i class="fa fa-hand-paper-o" id="papir" onclick="setUserMove('papir')"></i>
+</div>
+<span id="userResult"/>
+</section>
+
+<section>
+<h6>Računalo bira svoj potez:</h6>
+<div id="computer">
+<i class="fa fa-hand-grab-o" id="kamen"></i>
+<i class="fa fa-hand-scissors-o" id="skare"></i>
+<i class="fa fa-hand-paper-o" id="papir"></i>
+</div>
+<span id="computerResult"/>
+</section>
+<br>
+
+<!--<button type="button" id="ponovo">Pokušaj ponovno</button>-->
+</article>
+<div id="rezultat"></div>
+</body>
+<script>
+let computerOptions=document.getElementById("computer").querySelectorAll("i");
+let userOptions=document.getElementById("user").querySelectorAll("i");
+let computerMove;
+let userWin=0;
+let computerWin=0;
+let potezi=['kamen','skare','papir'];
+let playerSpan=document.getElementById('userResult');
+let computerSpan=document.getElementById('computerResult');
+let textResult=document.getElementById('rezultat');
+
+//staviti npr 3-2, u class rezultat staviti pobjeda ili vise srece drugi put
+function generateMove(){
+
+	let move=Math.floor((Math.random() * 3));
+	//alert(potezi[move-1]);
+	//alert(computerOptions[0].value);
+	//computerOptions[move-1].focus();
+	computerOptions[move].style.color="red";
+	//console.log(potezi[move]);
+	//console.log(move);
+	return potezi[move];
+}
+
+function setUserMove(userHand){
+	//vraćanje defaultne boje:
+	for(let i=0;i<potezi.length;i++){
+	computerOptions[i].style.color="black";
+	userOptions[i].style.color="black";
+	
+	}
+	document.getElementById(userHand).style.color="red";
+	displayResult(userHand, generateMove());
+	}
+	
+
+function displayResult(user,computer){
+computerSpan.innerHTML=computerWin;
+playerSpan.innerHTML=userWin;
+	if(user=='skare'){
+		if(computer=='kamen'){
+			computerWin++;
+			textResult.innerHTML="Više sreće drugi put!";
+			computerSpan.innerHTML=computerWin;
+			}else if(computer==user){
+				textResult.innerHTML="Izjednačeno!";
+			}else{
+				userWin++;
+				playerSpan.innerHTML=userWin;
+				textResult.innerHTML="Pobjeda!";
+			}
+			
+	}else if(user=='kamen'){
+		if(computer=='papir'){
+			computerWin++;
+			textResult.innerHTML="Više sreće drugi put!";
+			computerSpan.innerHTML=computerWin;
+			}else if(computer==user){
+				textResult.innerHTML="Izjednačeno!";
+			}else{
+				userWin++;
+				playerSpan.innerHTML=userWin;
+				textResult.innerHTML="Pobjeda!";
+			}
+	
+	
+	}else if(user=='papir'){
+		if(computer=='skare'){
+			computerWin++;
+			textResult.innerHTML="Više sreće drugi put!";
+			computerSpan.innerHTML=computerWin;
+			}else if(computer==user){
+				textResult.innerHTML="Izjednačeno!";
+			}else{
+				userWin++;
+				playerSpan.innerHTML=userWin;
+				textResult.innerHTML="Pobjeda!";
+			}
+			}
+}
+</script>
+</html>
