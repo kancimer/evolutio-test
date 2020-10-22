@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<title>Ančimer zadatak 3</title>
+<style>
+	body{
+		font-family:Arial;
+	}
+	input:focus{
+	outline:none;
+	}
+</style>
+</head>
+
+
+<body>
+<h2>Treći zadatak:</h2>
+<h6>Unos i provjera minimalnog broja pribrojnika, slobodno se služite tipkom Enter za unos</h6>
+<div class="user-input">
+	<p>Unesite brojeve koje želite za pribrojnike:</p>
+			<input type="text" id="input-numbers" name="msgText">
+			<button id="input-btn" type="button"><span class="fa fa-arrow-right"></span></button>
+			<!--<button id="zatvori" type="button" onclick="closeForm()">Close</button>-->
+		</div>
+<div class="user-input">
+	<p>Unesite broj koji se treba sastojati od pribrojnika ('B' u primjeru):</p>
+			<input type="text" id="input-result" name="msgText">
+			<button id="get-result" type="button"><span class="fa fa-arrow-right"></span></button>
+		</div>
+	<div id="result-output"></div>
+<script>
+let btnInput=document.getElementById("input-btn");
+let btnGetResult=document.getElementById("get-result");
+let inputBar=document.getElementById("input-numbers");
+let resBar=document.getElementById("input-result");
+let outputHTML=document.getElementById("result-output");
+let testNum;
+let B;
+let output=0;
+let brojevi=[];
+function checkIfNumber(num){
+ if(num==parseInt(num))return true;
+ else return false;
+}
+
+btnInput.addEventListener('click',function(){//provjera i dodavanje preko push
+		if(brojevi.includes(inputBar.value))alert("Vec ste unijeli taj broj");
+		else if(checkIfNumber(inputBar.value)){
+		brojevi.push(inputBar.value);
+		//provjeriti je li broj vec unesen
+		}
+		else{ 
+		alert("Molim upišite cijeli broj");
+		}
+		inputBar.value='';
+});
+
+inputBar.addEventListener("keyup", function(event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    btnInput.click();
+  }
+});
+resBar.addEventListener("keyup", function(event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    btnGetResult.click();
+  }
+});
+
+function getResult(){
+testNum=resBar.value;//provjeriti je li broj
+B=testNum;
+resBar.value='';
+let orderNum=brojevi.sort();
+orderNum.reverse();
+if(orderNum[orderNum.length-1]>orderNum)
+{
+	output=-1; //console.log("Checkpoint 1");
+	}else{
+	
+	orderNum.forEach(calculate);
+	if(testNum!=0)output=-1;
+	}
+	console.log(output);
+	//outputHTML.text=output.value;
+	var resOut=document.createTextNode(output.value);
+	outputHTML.innerHTML=String(output);
+	brojevi=[];
+	B=0;
+	output=0;
+}
+function calculate(broj,index){
+	//if(testNum<broj){console.log("Checkpoint 2",broj, testNum);}
+	if(testNum%broj==0){
+		output+=testNum/broj;
+		testNum=0;
+	}else{
+		//output+=testNum/broj;
+		output+=(testNum-(testNum%broj))/broj;
+		testNum=testNum%broj;
+		
+	}//console.log("Checkpoint 2",broj, testNum);
+}
+btnGetResult.addEventListener('click',function(){
+
+	if(checkIfNumber(resBar.value)){
+		getResult();
+		}
+		else{ 
+		alert("Molim upišite cijeli broj");
+		}
+
+});
+</script>
+</body>
+</html>
